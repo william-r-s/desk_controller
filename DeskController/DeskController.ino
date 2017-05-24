@@ -22,6 +22,20 @@ void setup() {
   pinMode(up_pin, OUTPUT);
   pinMode(down_pin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  
+  delay(1000);  
+  raise();
+}
+
+void raise() {
+    digitalWrite(up_pin, HIGH);   // turn the LED on (HIGH is the voltage level)
+    delay(RAISE_TIME);
+    digitalWrite(up_pin, LOW);
+    delay(1000);
+    digitalWrite(down_pin, HIGH);   // turn the LED on (HIGH is the voltage level)      
+    delay(LOWER_TIME);
+    digitalWrite(down_pin, LOW);      
+    raised = true;
 }
 
 // the loop function runs over and over again forever
@@ -43,15 +57,7 @@ void loop() {
   } else {
     digitalWrite(LED_BUILTIN, LOW);
     if(raised == false && millis() - last_heartbeat > WAIT_BEFORE_RAISE) {
-      digitalWrite(up_pin, HIGH);   // turn the LED on (HIGH is the voltage level)
-      delay(RAISE_TIME);
-      digitalWrite(up_pin, LOW);
-      delay(1000);
-      digitalWrite(down_pin, HIGH);   // turn the LED on (HIGH is the voltage level)      
-      delay(LOWER_TIME);
-      digitalWrite(down_pin, LOW);
-      
-      raised = true;
+      raise();
     }
     delay(300);
   }
