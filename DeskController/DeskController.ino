@@ -5,7 +5,7 @@
 int up_pin = 12;
 int down_pin = 11;
 unsigned long last_heartbeat = 0;
-const unsigned long WAIT_BEFORE_RAISE = 15000L; //15s
+const unsigned long WAIT_BEFORE_RAISE = 30000L; //30s
 const unsigned long RAISE_TIME = 15000L; //15s
 const unsigned long LOWER_TIME = 2500L; //2.5s
 bool raised = true;
@@ -28,6 +28,10 @@ void setup() {
 }
 
 void raise() {
+    if(raised) {
+      return;
+    }
+    raised = true;  
     digitalWrite(up_pin, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(RAISE_TIME);
     digitalWrite(up_pin, LOW);
@@ -35,7 +39,7 @@ void raise() {
     digitalWrite(down_pin, HIGH);   // turn the LED on (HIGH is the voltage level)      
     delay(LOWER_TIME);
     digitalWrite(down_pin, LOW);      
-    raised = true;
+
 }
 
 // the loop function runs over and over again forever
