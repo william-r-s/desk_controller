@@ -70,8 +70,9 @@ void loop() {
     delay(300);
   } else {
     digitalWrite(LED_BUILTIN, LOW);
-    if(raised() == false && millis() - last_heartbeat > WAIT_BEFORE_RAISE) {
+    if(raised() == false && last_heartbeat > 0 && millis() - last_heartbeat > WAIT_BEFORE_RAISE) {
       raise();
+      last_heartbeat = 0;
     }
     delay(300);
   }
